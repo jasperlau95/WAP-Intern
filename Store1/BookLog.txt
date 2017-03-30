@@ -1,0 +1,19 @@
+[ 2017-3-26 18:26:5 ] Customer(test3) buy books(ISBN:) with 2 copy(s)
+[ 2017-3-26 18:27:17 ] Customer(guest) buy books(ISBN:1) with 1 copy(s)
+[ 2017-3-26 18:33:18 ] Customer(guest) buy books(ISBN:1) with 10 copy(s)
+[ 2017-3-28 15:19:20 ] Customer(guest) refund books(ISBN:1) with 1 copy(s)
+[ 2017-3-28 22:11:23 ] Manager(jasper) add new books(ISBN:5) with 123456 copy(s)
+[ 2017-3-28 22:31:48 ] Manager(jasper) add new books(ISBN:6) with 4 copy(s)
+[ 2017-3-28 22:59:42 ] Manager(jasper) add new books(ISBN:123456) with 100 copy(s)
+[ 2017-3-29 9:21:32 ] Manager(jasper) delete books(ISBN:6) with 4 copy(s)
+[ 2017-3-29 9:41:21 ] Manager(jasper) change book(ISBN:7)'s information 
+[ 2017-3-29 9:48:23 ] Manager(jasper) change book(ISBN:123456)'s information 
+[ 2017-3-29 9:55:26 ] Manager(jasper) change book(ISBN:123456)'s information 
+[ 2017-3-29 10:17:34 ] Customer(test3) buy books(ISBN:123456) with 10 copy(s)
+[ 2017-3-29 10:17:58 ] Customer(test3) buy books(ISBN:123456) with 1 copy(s)
+[ 2017-3-29 10:18:25 ] Customer(test3) buy books(ISBN:123456) with 20 copy(s)
+[ 2017-3-29 10:27:21 ] Customer(test3) refund books(ISBN:123456) with 3 copy(s)
+[ 2017-3-29 15:22:31 ] Customer(test3) buy books(ISBN:1) with 10 copy(s)
+[ 2017-3-29 15:38:36 ] Customer(test3) buy books(ISBN:1) with 10 copy(s)
+[ 2017-3-29 15:59:53 ] Customer(test3) buy books(ISBN:1) with 10 copy(s)
+[ 2017-3-30 0:6:19 ] Manager(admin1) add new books(ISBN:145) with 50 copy(s)

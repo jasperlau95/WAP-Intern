@@ -1,0 +1,12 @@
+[ 2017-3-26 18:27:17 ] Customer(guest) buy books(ISBN:1) ---------- Income: 99
+[ 2017-3-26 18:33:18 ] Customer(guest) buy books(ISBN:1) ---------- Income: 891
+[ 2017-3-28 15:19:20 ] Customer(guest) refund books(ISBN:1) ---------- Outcome: 99
+[ 2017-3-28 22:11:23 ] Manager(jasper) add new books(ISBN:5) ---------- Outcome: 100
+[ 2017-3-28 22:31:48 ] Manager(jasper) add new books(ISBN:6) ---------- Outcome: 10
+[ 2017-3-28 22:59:42 ] Manager(jasper) add new books(ISBN:123456) ---------- Outcome: 200
+[ 2017-3-29 10:17:34 ] Customer(test3) buy books(ISBN:123456) ---------- Income: 990
+[ 2017-3-29 10:17:58 ] Customer(test3) buy books(ISBN:123456) ---------- Income: 99
+[ 2017-3-29 10:18:25 ] Customer(test3) buy books(ISBN:123456) ---------- Income: 1683
+[ 2017-3-29 10:27:21 ] Customer(test3) refund books(ISBN:123456) ---------- Outcome: 297
+[ 2017-3-29 15:22:31 ] Customer(test3) buy books(ISBN:1) ---------- Income: 891
+[ 2017-3-29 15:38:36 ] Customer(test3) buy books(ISBN:1) ---------- Income: 891
