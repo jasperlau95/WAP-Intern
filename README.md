@@ -37,11 +37,31 @@ ____
 	|	|--ShortOfBook.txt
 	|	|--UserLog.txt
 	|
+	|.csv
+	|----
+	|	|--Store.csv
+	|	|--User.csv
+	|
 	|\
 	|----
 	|	|--Store1
+	|	|--------
+	|	|		|--Book.csv
+	|	|		|--BookLog.txt
+	|	|		|--Cash.txt
+	|	|		|--CashLog.txt
 	|	|--Store2
+	|	|--------
+	|	|		|--Book.csv
+	|	|		|--BookLog.txt
+	|	|		|--Cash.txt
+	|	|		|--CashLog.txt
 	|	|--Store3
+	|	|--------
+	|	|		|--Book.csv
+	|	|		|--BookLog.txt
+	|	|		|--Cash.txt
+	|	|		|--CashLog.txt
 	|
 	|.exe
 	|----
@@ -55,16 +75,13 @@ ____
 
 ---
 
-#### How to use those files?
+#### How to use those files to run the system?
+Option 1:
+	double click the "Book Works.exe" (make sure the "Book Works.exe" is in the same folder with all the source code, .txt and .csv files)
 
-1) Open all the .cpp and .h files in Visual Studio, compile and run it.
-2) The main file is "main.cpp".
-3) Make sure all .txt files are exist in the same folder with .cpp and .h files, otherwise it may output error.
-4) Between each two words that you input, please use the underline "_" to replace space.
-
-Advanced features (Beside book system like buy or sell books)£º
-1)  User rating system, user with different status have different power.
-2£© Log system, allow you to lookup the *Log.txt to know current changes. 
+Option 2:
+	1) Open all the .cpp and .h files in Visual Studio, compile and run them.
+	2) The main file is "main.cpp".
 
 ---
 
@@ -72,17 +89,20 @@ Advanced features (Beside book system like buy or sell books)£º
  
 **User Classes :**
 
-	1) User 	:	Fundamental class with basic authority like list book, see detail information or change password.
-	2) Customer : 	Inherit from "User", add new ability like buy book and ask for refund. 
-	3) Staff	:   Inherit from "User", add new right like add new book, delete book, lookup net profit or change book's information.
-	4) Admin	:	Inherit from "Staff", add new power like add new user, delete user, list users or change user's status.
+	1) User 	:	Fundamental class with basic authority like list book, check book information or change password. Also with some attributes like username, password, status and vip level.
+	2) Customer : 	Inherit from "User", add new ability like buy book, refund and leave comment. 
+	3) Staff	:   Inherit from "User", add new ability like add new book, delete book, lookup net profit or change book's information.
+	4) Admin	:	Inherit from "Staff", add new ability like add new user, delete user, list users or change user's information.
 
 **Other Classes :**
 
-	5) Book 	: 	Fundamental class with book's information and some basic book management function.
-	6) Log 		:	This class has some functions used to log all the executed operation to .txt.
-	7) Library 	:	This class is a container to store all the information of books, students and cash, also it have some functions that can read information stored in .txt files and rewrite them back not after long.
-	8) Password :	This class has some functions have connection with password disposal.
+	5) Book 	 : 	Fundamental class with book's information and some basic book management function.
+	6) Store     :  This class has some attributes of each bookstore in the chain and some functions to access and modify these attributes.
+	7) Storelist :	This class can create a list to store all the bookstores of the chain and has some functions to load the store's data.
+	8) Log 		 :	This class has some functions used to log all the executed operation to text file, record the shortage of books and customers' complaint (advice).
+	9) Library   :	This class is a container to store all the information of books, users and cash, also it have some functions that can load and modify the database.
+	10) Password :	This class has some functions have connection with password disposal.
+	11) MD5 	 :	This class can use the MD5 algorithm to encrypt the users' password for security.
 
 -----------------------------------------------------------------------------------------
 
@@ -90,35 +110,43 @@ Advanced features (Beside book system like buy or sell books)£º
 
 Book :
 	name			the book's name
-	isbn			the book's ISBN number, it's the unique mark of a book (not a copy)
-	author			the person who wrote the book. E.g. X.Zed.Amour
-	category		the book's category number.   E.g. 1 maybe for Literature, 2 maybe for Computer
-	number			the amount of copies remained in book store
+	isbn			the book's ISBN number, it's the ID of the book
+	author			the author of the book
+	quantity		the quantity of the book in the store
+	category		the book's category number. 1 for "Art", 2 for "Engineering", and 3 for "Science"
 	price			the sells price of one book
-	discount		the discount that give to customers when them buy many copies
-	disc_num		the number of book at least that allow customers enjoy discount
 	information		the more detail information about this book
+	num_of_sale		the number indicating how many copies of this book were sold so far
 
 User/Customer/Staff/Admin :
 	username		the user's username, it's unique  
 	password		the user's password 
-	status			the user's status, 1 for Customer, 2 for Staff, 3 for Admin, 0 for Not exist
+	status			the user's status, 1 for Admin, 2 for Staff, 3 for Customer, 0 for deleted (not exist)
+	vip				the user's vip level, 0 for non-vip(no discount), 1 for vip(10% discount), 2 for vvip(20% discount) and 3 for vvvip(30% discount)
 
 Library :
-	BookArray		store all the books' information input from Book.txt
-	UserArray		store all the students' information input from User.txt
-	income			the total income up to now
-	outcome			the total outcome up to now
+	BookArray		store all the books' information imported from Book.txt
+	UserArray		store all the students' information imported from User.txt
+	income			the total income of the store so far
+	outcome			the total outcome of the store so far
 
-More detail information can be found in comments ~
+Store :
+	name			the code of the bookstore e.g. Store1, Stor2 and Store3
+	storeName		the name of the bookstore e.g. Shanghai Store, Hong Kong Store
+	address			the address of the store
+	bookAddress		the address of the Book.csv of this store
+	cashAddress		the address of the Cash.txt of this store
+	bookLogAddress	the address of the BookLog.txt of this store
+	cashLogAddress	the address of the CashLog.txt of this store
 
 -----------------------------------------------------------------------------------------
 
-#### Expected function in future :
+#### "Killer" feature :
 
-1) Crypt user's password function in Class Password.
-2) Add lookup history function in Class User.
-3) Add reservation function in Class Customer.
-4) More....
+1) When a book's quantity is less than 10, send a emergent message to the manager (admin)
+2) The customer can leave comment or advice for the store and the system will notify the manager (admin) immediately
+3) Keep track of the books' sales situation, find out the best seller and the worst seller and help the manager to make business strategy
+4) The manager can manage different bookstores of the chain using the same system, the customer can buy books from all the bookstores of the chain using the system.
+5) etc...
 
 -----------------------------------------------------------------------------------------
