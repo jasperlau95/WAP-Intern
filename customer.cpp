@@ -1,28 +1,36 @@
 #include "customer.h"
+#include "storelist.h"
 
 extern Log rec;
 extern Library lib;
 extern string account;
+extern int storeNum;
+extern Storelist storelist;
+extern Customer customer;
+extern int user_index;
 
 void Customer::BuyBook() // Customer buy books
 {
 	string name, isbn, temp;
 	int searchByWhat; // buy by ISBN or name
 
-	while (1) {
+	while (1) 
+	{
 		system("cls");
 		cout << "Please choose how to search the book by inputing a number" << endl;
 		cout << "1. By its name" << endl;
 		cout << "2. By its ISBN number" << endl;
 		cin >> searchByWhat;
 
-		if (searchByWhat == 1){
+		if (searchByWhat == 1)
+		{
 			cout << "Please input the name of the book that you want to buy " << endl;
 			cin >> name; // Input the book's name
 			break;
 		}
 
-		else if (searchByWhat == 2){
+		else if (searchByWhat == 2)
+		{
 			cout << "Please input the ISBN number of the book that you want to buy " << endl;
 			cin >> isbn; // Input the ISBN number
 			break;
@@ -50,12 +58,11 @@ void Customer::BuyBook() // Customer buy books
 			cout << "Category: " << lib.BookArray[i].GetCategory() << endl;
 			cout << "Price: " << lib.BookArray[i].GetPrice() << endl;
 			cout << "Quantity: " << lib.BookArray[i].GetNumber() << endl;
-			cout << "Discount Number: " << lib.BookArray[i].GetDisc_num() << endl;
-			cout << "Discount Rate: " << lib.BookArray[i].GetDiscount() << endl;
 			cout << "Description: " << lib.BookArray[i].GetInformation() << endl;
 
 			cout << "Please input the number of book that your want to buy: " << endl; 
-			while (1) {
+			while (1) 
+			{
 				cin >> temp; // Input how many book customer want to buy
 				if (IsAllDigit(temp)) break;
 				cout << "Pleass input a digital number, try again." << endl;
@@ -64,17 +71,24 @@ void Customer::BuyBook() // Customer buy books
 			{
 				cout << "Book is not enough! " << endl;
 				Sleep(1000);
-			} else {
+			} 
+			else 
+			{
 				lib.BookArray[i].SetNumber(lib.BookArray[i].GetNumber() - stoi(temp)); // Decrease the number of this book in lib.BookArray
-				//lib.BookArray[i].SetNumberOfSale(lib.BookArray[i].GetNumberOfSale() + stoi(temp)); // record the number of sale
-				cout << "Buy " << stoi(temp) << " copy of that books, succsessfully! You need to pay $" << lib.BookArray[i].NetPrice(stoi(temp)) << endl;
+				lib.BookArray[i].SetNumberOfSale(lib.BookArray[i].GetNumberOfSale() + stoi(temp)); // record the number of sale
+				cout << "Buy " << stoi(temp) << " copy of that books, succsessfully! You need to pay $"
+				<< stoi(temp)*lib.BookArray[i].GetPrice()*(1-User::GetVip()/10.0) << endl;
+				rec.BookLog(account, isbn, "buy", stoi(temp)); // Update BookLog.txt with "buy" operation
+				rec.CashLog(account, isbn, "buy", stoi(temp)*lib.BookArray[i].GetPrice()*(1-User::GetVip()/10.0)); // Update CashLog.txt with "buy" operation
+				PrintBookArray(); // Output book information to Book.txt
+				PrintCash(); // Output cash information to Cash.txt
+
+				if (lib.BookArray[i].GetNumber() < 10)
+					rec.ShortOfBookLog(lib.BookArray[i].GetName(), storelist.StoreArray[storeNum-1].GetName());
+
 				Sleep(1000);
-				cout << "Automatic quit after 3 seconds." << endl;
-				Sleep(2000);
-				rec.BookLog(account, isbn, "buy", stoi(temp));										// Update BookLog.txt with "buy" operation
-				rec.CashLog(account, isbn, "buy", lib.BookArray[i].NetPrice(stoi(temp)));			// Update CashLog.txt with "buy" operation
-				PrintBookArray();																// Output book information to Book.txt
-				PrintCash();																		// Output cash information to Cash.txt
+				cout << "Automatic quit after 4 seconds." << endl;
+				Sleep(4000);
 			}
 			return;
 		}
@@ -101,13 +115,13 @@ void Customer::Refund()	// Customer ask for refund
 		}
 		lib.BookArray[bookPos].SetNumber(lib.BookArray[bookPos].GetNumber() + stoi(temp)); // Increase the number of this book in lib.BookArray
 		cout << "Refund " << stoi(temp) << " of that books, succsessfully!" << endl;
+		rec.BookLog(account, isbn, "ref", stoi(temp)); // Update BookLog.txt with "buy" operation
+		rec.CashLog(account, isbn, "ref", stoi(temp)*lib.BookArray[bookPos].GetPrice()*(1-User::GetVip()/10.0)); // Update CashLog.txt with "buy" operation
+		PrintBookArray(); // Output book information to Book.txt
+		PrintCash(); // Output cash information to Cash.txt
 		Sleep(1000);
 		cout << "Automatic quit after 3 seconds." << endl;
 		Sleep(2000);
-		rec.BookLog(account, isbn, "ref", stoi(temp)); // Update BookLog.txt with "buy" operation
-		rec.CashLog(account, isbn, "ref", lib.BookArray[bookPos].NetPrice(stoi(temp))); // Update CashLog.txt with "buy" operation
-		PrintBookArray(); // Output book information to Book.txt
-		PrintCash(); // Output cash information to Cash.txt
 		return;
 	}
 	else
@@ -115,13 +129,28 @@ void Customer::Refund()	// Customer ask for refund
 	Sleep(1000);
 }
 
-void Customer::Interface(string username)					// Admin interface
+void Customer::LeaveComment() // Leave a comment
 {
+	system("cls");
+	string str;
+	cout << "Please leave your valuable advice or comment: " << endl;
+	cin.ignore();
+	getline(cin, str);
+	rec.CommentLog(account, str);
+	cout << endl << "Comment received! Thank you for your time!" << endl;
+	Sleep(1000);
+	cout << "Automatic quit after 3 seconds." << endl;
+	Sleep(2000);
+}
+
+void Customer::Interface() // Admin interface
+{
+	LoadUser();
 	char command;
 	int stop = 0;
 	while (1) {
 		system("cls");
-		cout << "Welcome " << username << "! You are in the customer mode" << endl;
+		cout << "Welcome " << lib.UserArray[user_index].GetUsername() << "! You are in the customer mode" << endl;
 		cout << "Please choose what you want to do by input a number " << endl;
 		while (1) {														// The operation list
 			cout << "1 ----- Buy book" << endl;
@@ -131,10 +160,11 @@ void Customer::Interface(string username)					// Admin interface
 			cout << "5 ----- List book (By Name)" << endl;
 			cout << "6 ----- Show more book information by ISBN number" << endl;
 			cout << "7 ----- Change my password" << endl;
-			cout << "0 ----- Exit;" << endl;
+			cout << "8 ----- Leave a comment" << endl;
+			cout << "0 ----- Exit" << endl;
 			cin >> command;
-			if (command < '0' || command > '7') {
-				cout << endl << "Please input number between 0 and 7!" << endl;
+			if (command < '0' || command > '8') {
+				cout << endl << "Please input number between 0 and 8!" << endl;
 			} else break;
 		}
 		switch (command)
@@ -159,6 +189,9 @@ void Customer::Interface(string username)					// Admin interface
 				break;
 			case '7':
 				ChangePsw(); // Change password
+				break;
+			case '8':
+				LeaveComment(); // Leave a comment
 				break;
 			case '0':
 				stop = 1;

@@ -3,6 +3,7 @@
 extern Library lib;
 extern Log rec;
 extern string account;
+extern int user_index;
 
 void Staff::AddBook() // Add new books
 {
@@ -19,11 +20,11 @@ void Staff::AddBook() // Add new books
 		Sleep(1000);
 		return;
 	}
-	cout << "Please input the name of the book\n";
+	cout << "Please input the name of the book:" << endl;
 	getline(cin, name); // Input bookname
-	cout << "Please input the author of the book" << endl;
+	cout << "Please input the author of the book:" << endl;
 	getline(cin, author); // Input author 
-	cout << "Please input the copy number of the book" << endl;
+	cout << "Please input the copy number of the book:" << endl;
 	while (1) {
 		cin >> number; // Input copy number 
 		if (IsAllDigit(number)) break;
@@ -40,29 +41,20 @@ void Staff::AddBook() // Add new books
 		if (category == 1 || category == 2 || category == 3) break;
 		cout << "Pleass input a number between 1 and 3!" << endl;
 	}
-	cout << "Please input the price of the book" << endl;
+	cout << "Please input the price of the book:" << endl;
 	while (1) {
 		cin >> price; // Input price
 		if (IsAllDigit(price)) break;
 		cout << "Pleass input a digital number :)   Try again." << endl;
 	}
-	cout << "Please input the discount of the book" << endl;
-	while (1) {
-		cin >> discount; // Input discount
-		if (IsAllDigit(discount)) break;
-		cout << "Pleass input a digital number :)   Try again." << endl;
-	}
-	cout << "Please input the number of the book at least that can give a discount " << endl;
-	while (1) {
-		cin >> disc_num; // Input disc_num
-		if (IsAllDigit(disc_num)) break;
-		cout << "Pleass input a digital number :)   Try again." << endl;
-	}
-	cout << "Please input some information of this book" << endl;
+
+	cout << "Please input some information of this book:" << endl;
 	cin.ignore();
 	getline(cin, information); // Input detail information
-	cout << "Please input the money that those book costs" << endl;
-	while (1) {
+
+	cout << "Please input the cost of these books:" << endl;
+	while (1) 
+	{
 		cin >> money; // Input the cost of those book
 		if (IsAllDigit(money)) break;
 		cout << "Pleass input a digital number :)   Try again." << endl;
@@ -73,14 +65,12 @@ void Staff::AddBook() // Add new books
 	newbook.SetNumber(stoi(number));
 	newbook.SetCategory(category);
 	newbook.SetPrice(stod(price));
-	newbook.SetDiscount(stod(discount));
-	newbook.SetDisc_num(stoi(disc_num));
 	newbook.SetInformation(information);
-	//newbook.SetNumberOfSale(0);
+	newbook.SetNumberOfSale(0);
 	lib.BookArray.push_back(newbook); // Add this newbook to lib.BookArray
 	cout << "Add book succsessfully!" << endl;
 	Sleep(1000);
-	cout << "Automatic quit after 3 seconds." << endl;
+	cout << "Automatic quit in 2 seconds." << endl;
 	Sleep(2000);
 	rec.BookLog(account, isbn, "add", stoi(number)); // Update BookLog.txt with "add" operation
 	rec.CashLog(account, isbn, "add", stod(money));	// Update CashLog.txt with "add" operation
@@ -172,7 +162,7 @@ void Staff::SetBook() // Change books' information
 			getline(cin, author); // Input new author
 			lib.BookArray[bookPos].SetAuthor(author);
 		}
-		cout << "The book's current copy number is: " << lib.BookArray[bookPos].GetNumber() << endl;
+		cout << "The book's current quantity is: " << lib.BookArray[bookPos].GetNumber() << endl;
 		cout << "Do you want to change it? (input 1 for YES and 0 for NO )" << endl;
 		cin >> choice; 
 		if (choice == 1) {
@@ -184,7 +174,7 @@ void Staff::SetBook() // Change books' information
 			}
 			lib.BookArray[bookPos].SetNumber(stoi(number));
 		}
-		cout << "The book's current category is: " << lib.BookArray[bookPos].GetCategory() << endl;
+		cout << "The book's current category is: " << lib.BookArray[bookPos].GetCategoryName() << endl;
 		cout << "Do you want to change it? (input 1 for YES and 0 for NO )" << endl;		
 		cin >> choice; 
 		if (choice == 1) 
@@ -216,35 +206,8 @@ void Staff::SetBook() // Change books' information
 			}
 			lib.BookArray[bookPos].SetPrice(stod(price));
 		}
-		cout << "The book's current discount rate is: " << lib.BookArray[bookPos].GetDiscount() << endl;
-		cout << "Do you want to change it? (input 1 for YES and 0 for NO )" << endl;
-		cin >> choice;
-		if (choice == 1) 
-		{
-			cout << "Please input the new discount of the book" << endl;
-			while (1)
-			{
-				cin >> discount; // Input new discount
-				if (IsAllDigit(discount)) break;
-				cout << "Pleass input a digital number :)   Try again." << endl;
-			}
-			lib.BookArray[bookPos].SetDiscount(stod(discount));
-		}
-		cout << "The book's current discount number is: " << lib.BookArray[bookPos].GetDisc_num() << endl;
-		cout << "Do you want to change it? (input 1 for YES and 0 for NO )" << endl;
-		cin >> choice;
-		if (choice == 1) 
-		{
-			cout << "Please input the new disc_num of the book" << endl;
-			while (1) 
-			{
-				cin, disc_num; // Input new disc_num
-				if (IsAllDigit(disc_num)) break;
-				cout << "Pleass input a digital number :)   Try again." << endl;
-			}
-			lib.BookArray[bookPos].SetDisc_num(stoi(disc_num));
-		}
-		cout << "The book's current copy number is: " << lib.BookArray[bookPos].GetInformation() << endl;
+		
+		cout << "The book's current quantity is: " << lib.BookArray[bookPos].GetInformation() << endl;
 		cout << "Do you want to change it? (input 1 for YES and 0 for NO )" << endl;
 		cin >> choice; 
 		if (choice == 1) 
@@ -281,14 +244,15 @@ void Staff::ViewProfit() // Lookup net profit
 	return;
 }
 
-void Staff::Interface(string username) // Staff interface
+void Staff::Interface() // Staff interface
 {
+	LoadUser();
 	char command;
 	int stop = 0;
 	string str;
 	while (1) {
 		system("cls");
-		cout << "Welcome " << username << "! You are in the staff mode" << endl;
+		cout << "Welcome " << lib.UserArray[user_index].GetUsername() << "! You are in the staff mode" << endl;
 		cout << "Please choose what you want to do by input a number " << endl;
 		while (1) {														// The operation list
 			cout << "1 ----- Add new book" << endl;

@@ -21,14 +21,20 @@ void Library::LoadUser() // Load User.txt(users' account and password database)
 		cerr << "User.csv can't open" << endl;
 		abort(); // Exit
 	}
-	while (getline(ifs, str)) {
+	while (getline(ifs, str)) 
+	{
 		size_t i = str.find(","); // Find fisrt spacebar
 		olduser.SetUsername(str.substr(0, i)); // Divide str by spacebar and get username
 		str = str.substr(i+1);
 
 		i = str.find(","); // Find second spacebar
 		olduser.SetPassword(str.substr(0, i));	// Divide str by spacebar and get password
-		olduser.SetStatus(stoi(str.substr(i+1))); // Divide str by spacebar and get status
+		str = str.substr(i+1);
+
+		i = str.find(","); // Find thirt spacebar
+		olduser.SetStatus(stoi(str.substr(0, i))); // Divide str by spacebar and get status
+
+		olduser.SetVip(stoi(str.substr(i+1)));
 
 		UserArray.push_back(olduser); // Add to lib.UserArray
 	}
@@ -79,12 +85,9 @@ void Library::LoadBook()	// Load Book.txt
 		str = str.substr(i+1);
 
 		i = str.find(",");
-		oldbook.SetDiscount(stod(str.substr(0, i))); // Divide str by spacebar and get discount
-		str = str.substr(i+1);
+		oldbook.SetInformation(str.substr(0, i));
 
-		i = str.find(",");
-		oldbook.SetDisc_num(stoi(str.substr(0, i))); // Divide str by spacebar and get disc_num	
-		oldbook.SetInformation(str.substr(i+1));
+		oldbook.SetNumberOfSale(stoi(str.substr(i+1)));
 
 		BookArray.push_back(oldbook); // Add to lib.BookArray
 	}

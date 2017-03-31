@@ -1,0 +1,1 @@
+[ 2017-3-31 10:20:56 ]The quantity of the book "How to get the offer?" in the store "Store1" is less than 10 now, please restock it ASAP!

@@ -8,34 +8,37 @@ extern Library lib;
 extern string account;
 extern string book_address;
 extern string cash_address;
+extern int user_index;
 
 void User::PrintUserArray() // Output user information to User.txt
 {
 	ofstream fout;
 	fout.open("User.csv"); // Open and cover User.txt
-	if (!fout) { // If can't open
+	if (!fout) // If can't open
+	{ 
 		cerr << "User.csv can't open" << endl;
 		abort(); // Exit
 	}
 	for (size_t i = 0; i < lib.UserArray.size(); i++ ) // Output each user's information
-		fout << lib.UserArray[i].GetUsername() << "," << lib.UserArray[i].GetPassword() << "," << lib.UserArray[i].GetStatus() << endl;
+		fout << lib.UserArray[i].GetUsername() << "," << lib.UserArray[i].GetPassword() << "," << lib.UserArray[i].GetStatus() << "," << lib.UserArray[i].GetVip() << endl;
 	fout.close(); // Close User.txt
 }
 
 void User::PrintBookArray()	// Output book information to Book.txt
 {
-	ofstream fout;
-	fout.open(book_address); // Open and cover Book.txt
-	if  (!fout) { // If can't open
+	ofstream fos;
+	fos.open(book_address); // Open and cover Book.txt
+	if  (!fos) { // If can't open
 		cerr << book_address << " can't open" << endl;
 		abort(); // Exit
 	}
 	for (size_t i = 0; i < lib.BookArray.size(); i++ ) // Output each book's information
-		fout << lib.BookArray[i].GetName() << "," << lib.BookArray[i].GetIsbn() << "," << lib.BookArray[i].GetAuthor() 
+		fos << lib.BookArray[i].GetName() << "," << lib.BookArray[i].GetIsbn() << "," << lib.BookArray[i].GetAuthor() 
 			<< "," << lib.BookArray[i].GetNumber() << "," << lib.BookArray[i].GetCategory() 
-			<< "," << lib.BookArray[i].GetPrice() << "," << lib.BookArray[i].GetDiscount() 
-			<< "," << lib.BookArray[i].GetDisc_num() << "," << lib.BookArray[i].GetInformation() << endl;
-	fout.close(); // Close Book.txt
+			<< "," << lib.BookArray[i].GetPrice() << "," << lib.BookArray[i].GetInformation()
+			<< "," << lib.BookArray[i].GetNumberOfSale() << endl;
+
+	fos.close(); // Close Book.txt
 }
 
 void User::PrintCash() // Output cash information to Cash.txt
@@ -127,7 +130,7 @@ void User::ListBookByC() // List book by category
 	cout << "-------------------------------------------------------------------------" << endl;
 	cout << "|       ISBN       |            Name           | Quantity |  Unit Price |" << endl;
 	cout << "-------------------------------------------------------------------------" << endl;
-	for (int i = 0; i < lib.BookArray.size(); i++) // Output each book information in this category
+	for (size_t i = 0; i < lib.BookArray.size(); i++) // Output each book information in this category
 	{	if (lib.BookArray[i].GetCategory() == category) 
 		{
 			cout << "|" << setw(18) << lib.BookArray[i].GetIsbn() << "|" <<  setw(27) << lib.BookArray[i].GetName() <<  "|" 
@@ -242,10 +245,8 @@ void User::BookInfor() // See more information of one book
 			cout << "Name			: " << lib.BookArray[i].GetName() << endl;
 			cout << "Author			: " << lib.BookArray[i].GetAuthor() << endl;
 			cout << "Number			: " << lib.BookArray[i].GetNumber() << endl;  
-			cout << "Category		: " << lib.BookArray[i].GetCategory() << endl;
+			cout << "Category		: " << lib.BookArray[i].GetCategoryName() << endl;
 			cout << "Price			: " << setiosflags(ios::fixed) << setprecision(2) << lib.BookArray[i].GetPrice() << endl;  
-			cout << "Discount		: " << setiosflags(ios::fixed) << setprecision(2) << lib.BookArray[i].GetDiscount()  << endl;
-			cout << "Disc_num		: " << lib.BookArray[i].GetDisc_num() << endl;  
 			cout << "Information		: " << lib.BookArray[i].GetInformation() << endl;
 			cout << endl;
 			cout << "Input 0 to exit" << endl;
@@ -282,4 +283,12 @@ void User::ChangePsw() // User choose to change his or her password
 		PrintUserArray(); // Output user information to User.txt
 		Sleep(2000);
 	}
+}
+
+void User::LoadUser() // Load the user's vip level
+{
+	SetUsername(lib.UserArray[user_index].GetUsername());
+	SetPassword(lib.UserArray[user_index].GetPassword());
+	SetStatus(lib.UserArray[user_index].GetStatus());
+	SetVip(lib.UserArray[user_index].GetVip());
 }

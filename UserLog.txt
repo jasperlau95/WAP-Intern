@@ -20,3 +20,6 @@
 [ 2017-3-29 22:18:28 ] Admin(jasper) add a new user(admin1)
 [ 2017-3-29 22:18:37 ] Admin(jasper) add a new user(staff1)
 [ 2017-3-29 22:18:55 ] Admin(jasper) add a new user(cumtomer1)
+[ 2017-3-30 13:55:54 ] Admin() add a new user(Customer2)
+[ 2017-3-30 20:53:28 ] Admin(jasper) add a new user(customer3)
+[ 2017-3-31 0:20:16 ] Admin(jasper) set user(md5)'s vip level to (1) 

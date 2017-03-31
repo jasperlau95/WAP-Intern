@@ -14,10 +14,8 @@ public:
 	int GetCategory() { return category; }
 	string GetCategoryName() {return categoryNum2categoryName[category-1]; }
 	double GetPrice() { return price; }
-	double GetDiscount() { return discount; }
-	int GetDisc_num() { return disc_num; }
 	string GetInformation() { return information; }
-	//int GetNumberOfSale() { return num_of_sale; }
+	int GetNumberOfSale() { return num_of_sale; }
 
 	// Change different information of Book 
 	void SetName(string new_name) { name = new_name; }
@@ -26,19 +24,8 @@ public:
 	void SetNumber(int new_number) { number = new_number; }
 	void SetCategory(int new_category) { category = new_category; }
 	void SetPrice(double new_price) { price = new_price; }
-	void SetDiscount(double new_discount) { discount = new_discount; }
-	void SetDisc_num(int new_disc_num) { disc_num = new_disc_num; }
 	void SetInformation(string new_imfor) { information = new_imfor; }
-	//void SetNumberOfSale(int new_num_of_sale) {num_of_sale = new_num_of_sale; }
-
-	// Calculate the money of buy (num) books
-	double NetPrice(int num) 
-	{
-		if (num > disc_num)
-			return ((double)num * price * discount);
-		else
-			return ((double)num * price);
-	}
+	void SetNumberOfSale(int new_num_of_sale) {num_of_sale = new_num_of_sale; }
 
 private:
 	string name;
@@ -47,11 +34,9 @@ private:
 	int number; // The copy number of book
 	int category; // The category number
 	double price; // Unit-price of book
-	double discount; // The discount that give to customer if him buy a lot of books
-	int disc_num; // The at least number of book that customer can enjoy discount
 	string information;	// More commentary of that book
 	string categoryNum2categoryName[3] = {"Art", "Engineering", "Science"};
-	//int num_of_sale; // count the number of sale of this book
+	int num_of_sale; // count the number of sale of this book
 };
 
 #endif
