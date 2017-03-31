@@ -1,37 +1,51 @@
-# Book-Store-Management-System
+# Book Works Bookstore Chain Management System
 
 #### All files :
 ____	
-	|.H
+	|.h
 	|----
-	|	|--Admin.h
-	|	|--Book.h
-	|	|--Customer.h
-	|	|--Library.h
-	|	|--Log.h
-	|	|--Password.h
-	|	|--Staff.h
-	|	|--User.h
+	|	|--admin.h
+	|	|--book.h
+	|	|--customer.h
+	|	|--library.h
+	|	|--log.h
+	|	|--md5
+	|	|--password.h
+	|	|--staff.h
+	|	|--store.h
+	|	|--storelist.h
+	|	|--user.h
 	|
 	|.cpp
 	|----
-	|	|--Admin.cpp
-	|	|--Customer.cpp
-	|	|--Library.cpp
-	|	|--Log.cpp
-	|	|--Main.cpp
-	|	|--Password.cpp
-	|	|--Staff.cpp
-	|	|--User.cpp
+	|	|--admin.cpp
+	|	|--customer.cpp
+	|	|--library.cpp
+	|	|--log.cpp
+	|	|--main.cpp
+	|	|--md5.cpp
+	|	|--password.cpp
+	|	|--staff.cpp
+	|	|--storelist.cpp
+	|	|--user.cpp
 	|
 	|.txt
 	|----
-	|	|--Book.txt
-	|	|--BookLog.txt
-	|	|--Cash.txt
-	|	|--CashLog.txt
-	|	|--User.txt
+	|	|--CheckComment.txt
+	|	|--CheckShortBook.txt
+	|	|--Comments.txt
+	|	|--ShortOfBook.txt
 	|	|--UserLog.txt
+	|
+	|\
+	|----
+	|	|--Store1
+	|	|--Store2
+	|	|--Store3
+	|
+	|.exe
+	|----
+	|	|--Book Works.exe
 	|
 	|.md
 	|----
