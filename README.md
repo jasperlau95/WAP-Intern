@@ -76,12 +76,12 @@ ____
 ---
 
 #### How to use those files to run the system?
-**Option 1:**
+Option 1:
 	double click the "Book Works.exe" (make sure the "Book Works.exe" is in the same folder with all the source code, .txt and .csv files)
 
-**Option 2:**
-	1)	Open all the .cpp and .h files in Visual Studio, compile and run them.
-	2) 	The main file is "main.cpp".
+Option 2:
+	1) Open all the .cpp and .h files in Visual Studio, compile and run them.
+	2) The main file is "main.cpp".
 
 ---
 
@@ -89,20 +89,20 @@ ____
  
 **User Classes :**
 
-	1) User 	:	Fundamental class with basic authority like list book, check book information or change password. Also with some attributes like username, password, status and vip level.
+	1) User     :	Fundamental class with basic authority like list book, check book information or change password. Also with some attributes like username, password, status and vip level.
 	2) Customer : 	Inherit from "User", add new ability like buy book, refund and leave comment. 
-	3) Staff	:   Inherit from "User", add new ability like add new book, delete book, lookup net profit or change book's information.
-	4) Admin	:	Inherit from "Staff", add new ability like add new user, delete user, list users or change user's information.
+	3) Staff    :   Inherit from "User", add new ability like add new book, delete book, lookup net profit or change book's information.
+	4) Admin    :	Inherit from "Staff", add new ability like add new user, delete user, list users or change user's information.
 
 **Other Classes :**
 
-	5) Book 	 : 	Fundamental class with book's information and some basic book management function.
+	5) Book      : 	Fundamental class with book's information and some basic book management function.
 	6) Store     :  This class has some attributes of each bookstore in the chain and some functions to access and modify these attributes.
 	7) Storelist :	This class can create a list to store all the bookstores of the chain and has some functions to load the store's data.
-	8) Log 		 :	This class has some functions used to log all the executed operation to text file, record the shortage of books and customers' complaint (advice).
+	8) Log       :	This class has some functions used to log all the executed operation to text file, record the shortage of books and customers' complaint (advice).
 	9) Library   :	This class is a container to store all the information of books, users and cash, also it have some functions that can load and modify the database.
 	10) Password :	This class has some functions have connection with password disposal.
-	11) MD5 	 :	This class can use the MD5 algorithm to encrypt the users' password for security.
+	11) MD5      :	This class can use the MD5 algorithm to encrypt the users' password for security.
 
 -----------------------------------------------------------------------------------------
 
@@ -136,8 +136,8 @@ Store :
 	address			the address of the store
 	bookAddress		the address of the Book.csv of this store
 	cashAddress		the address of the Cash.txt of this store
-	bookLogAddress		the address of the BookLog.txt of this store
-	cashLogAddress		the address of the CashLog.txt of this store
+	bookLogAddress	the address of the BookLog.txt of this store
+	cashLogAddress	the address of the CashLog.txt of this store
 
 -----------------------------------------------------------------------------------------
 
