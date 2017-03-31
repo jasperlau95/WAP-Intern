@@ -76,12 +76,12 @@ ____
 ---
 
 #### How to use those files to run the system?
-Option 1:
+**Option 1:**
 	double click the "Book Works.exe" (make sure the "Book Works.exe" is in the same folder with all the source code, .txt and .csv files)
 
-Option 2:
-	1) Open all the .cpp and .h files in Visual Studio, compile and run them.
-	2) The main file is "main.cpp".
+**Option 2:**
+	1)	Open all the .cpp and .h files in Visual Studio, compile and run them.
+	2) 	The main file is "main.cpp".
 
 ---
 
@@ -136,8 +136,8 @@ Store :
 	address			the address of the store
 	bookAddress		the address of the Book.csv of this store
 	cashAddress		the address of the Cash.txt of this store
-	bookLogAddress	the address of the BookLog.txt of this store
-	cashLogAddress	the address of the CashLog.txt of this store
+	bookLogAddress		the address of the BookLog.txt of this store
+	cashLogAddress		the address of the CashLog.txt of this store
 
 -----------------------------------------------------------------------------------------
 
