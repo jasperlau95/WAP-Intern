@@ -1,4 +1,4 @@
-# Book Works Bookstore Chain Management System
+# Bookstore Chain Management System
 
 #### All files :
 ____	
